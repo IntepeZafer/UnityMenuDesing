@@ -22,13 +22,21 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Destroy(gameObject);
-        Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-        gameManager.updateScore(pointValue);
+        if (gameManager.isGameActive)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            gameManager.updateScore(pointValue);
+        }
+        
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         Destroy(gameObject);
+        if (!gameObject.CompareTag("Bad"))
+        {
+            gameManager.GameOver();
+        }
     }
 
     Vector3 RandomForce() // Uygulanacak random başlangıç hızı fonksiyonu
