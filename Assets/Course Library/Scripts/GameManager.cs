@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private int score = 0;
     public bool isGameActive;
     public Button restartButton;
+    public GameObject titleScreen;
 
     void Start()
     {
@@ -45,11 +46,13 @@ public class GameManager : MonoBehaviour
         score += scoreToAdd;
         textMessages[0].text = "Score: " + score;
     }
-    public void StartGame()
+    public void StartGame(int difficulty)
     {
+        titleScreen.gameObject.SetActive(false);
         isGameActive = true;
         score = 0;
         StartCoroutine(SpawnTarget());
         updateScore(0);
+        spawnRate /= difficulty;
     }
 }
