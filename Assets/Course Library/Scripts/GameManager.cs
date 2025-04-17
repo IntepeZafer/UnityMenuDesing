@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> targets;
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public float spawnRate = 1.0f;
     private int score = 0;
     public bool isGameActive;
+    public Button restartButton;
 
     void Start()
     {
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        restartButton.gameObject.SetActive(true);
         textMessages[1].gameObject.SetActive(true);
         isGameActive = false;
     }
@@ -41,5 +44,12 @@ public class GameManager : MonoBehaviour
     {
         score += scoreToAdd;
         textMessages[0].text = "Score: " + score;
+    }
+    public void StartGame()
+    {
+        isGameActive = true;
+        score = 0;
+        StartCoroutine(SpawnTarget());
+        updateScore(0);
     }
 }
